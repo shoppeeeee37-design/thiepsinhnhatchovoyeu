@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A little birthday surprise ♡</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pinkBg: '#fceef2',
+                        pinkCard: '#fff9fb',
+                        pinkAccent: '#f497ac',
+                        pinkDeep: '#d8587d',
+                        pinkText: '#a3485e',
+                    },
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                        title: ['Comfortaa', 'cursive'],
+                        romantic: ['Dancing Script', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+        @keyframes pulseSlow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+        @keyframes heartRise {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+            animation: pulseSlow 2.5s ease-in-out infinite;
+        }
+        .heart-particle {
+            position: fixed;
+            bottom: -20px;
+            pointer-events: none;
+            z-index: 1;
+            animation: heartRise linear forwards;
+        }
+        /* Custom Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 151, 172, 0.3);
+            box-shadow: 0 15px 35px -5px rgba(244, 151, 172, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-pinkBg min-h-screen font-sans text-gray-700 flex flex-col items-center justify-center p-4 relative overflow-x-hidden">
+
+    <!-- Background Sparkles / Decorative Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-10 left-10 text-pinkAccent/40 text-2xl animate-pulse">✧</div>
+        <div class="absolute top-20 right-12 text-pinkAccent/40 text-3xl animate-bounce">❀</div>
+        <div class="absolute bottom-16 left-8 text-pinkAccent/40 text-3xl animate-float">✿</div>
+        <div class="absolute bottom-24 right-16 text-pinkAccent/40 text-2xl animate-pulse">✧</div>
+        <div class="absolute top-1/3 left-5 text-pinkAccent/30 text-xl animate-float">♡</div>
+        <div class="absolute top-2/3 right-8 text-pinkAccent/30 text-xl animate-float" style="animation-delay: 1.5s;">♡</div>
+    </div>
+
+    <!-- Music Control Button -->
+    <button id="musicToggleBtn" onclick="toggleAudio()" class="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur-md p-3 rounded-full shadow-md hover:scale-110 transition-transform duration-300 text-pinkDeep flex items-center justify-center cursor-pointer border border-pinkAccent/30" title="Bật/Tắt Nhạc">
+        <svg id="musicIcon" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <!-- Mute Icon by default -->
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+
+    <!-- Background Audio (Chill Relaxing Piano / Birthday Vibes) -->
+    <audio id="bgMusic" loop preload="auto">
+        <!-- Royalty-free romantic soft piano music -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=happy-birthday-to-you-piano-version-112702.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- CONTAINER CHÍNH -->
+    <main class="w-full max-w-md z-10 my-auto">
+        
+        <!-- ================= MÀN HÌNH 1: KHÓA MẬT KHẨU ================= -->
+        <div id="screen1" class="glass-card rounded-3xl p-6 sm:p-8 text-center transition-all duration-700 transform scale-100 opacity-100 relative">
+            <!-- Góc trang trí hoa -->
+            <div class="absolute top-4 right-5 text-pinkAccent text-xl select-none">❀</div>
+            <div class="absolute bottom-4 left-5 text-pinkAccent text-xl select-none">୨୧</div>
+
+            <!-- Header nhỏ -->
+            <p class="text-xs uppercase tracking-widest text-pinkAccent font-semibold mb-3">A TINY BIRTHDAY SURPRISE</p>
+
+            <!-- Tiêu đề -->
+            <h1 class="font-title font-bold text-2xl sm:text-3xl text-pinkDeep mb-4">
+                Chờ một chút nhé <span class="inline-block animate-bounce text-pinkDeep">♡</span>
+            </h1>
+
+            <!-- Icon Trái tim giữa -->
+            <div class="my-4 flex justify-center">
+                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center text-pinkDeep text-3xl animate-pulse-slow shadow-inner">
+                    ♥
+                </div>
+            </div>
+
+            <!-- Dòng mô tả -->
+            <p class="text-sm sm:text-base text-gray-600 mb-6 leading-relaxed px-2">
+                Trước khi mở món quà nhỏ này, cho mình hỏi ngày sinh của người gửi là ngày nào?
+            </p>
+
+            <!-- Form Nhập Ngày Sinh -->
+            <div class="space-y-4 max-w-xs mx-auto">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="dateInput" 
+                        placeholder="Ví dụ: 26/09" 
+                        maxlength="10"
+                        onkeypress="handleKeyPress(event)"
+                        class="w-full px-4 py-3.5 rounded-2xl border-2 border-pink-200 focus:border-pinkAccent focus:outline-none text-center text-gray-700 font-semibold text-lg placeholder-pink-300 transition-colors shadow-sm bg-white/90"
+                    />
+                </div>
+
+                <!-- Thông báo lỗi (mặc định ẩn) -->
+                <p id="errorMsg" class="text-xs text-rose-500 font-medium hidden animate-shake">
+                    Sai ngày sinh rồi nè! Thử lại nhé ♡ (Gợi ý: 2609)
+                </p>
+
+                <!-- Nút bấm Mở Bất Ngờ -->
+                <button 
+                    onclick="checkPassword()" 
+                    class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-pinkAccent to-pinkDeep text-white font-bold text-base shadow-lg shadow-pink-300/50 hover:shadow-pink-400/70 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                    <span>Mở bất ngờ ♡</span>
+                </button>
+            </div>
+
+            <!-- Footer nhỏ -->
+            <p class="text-xs text-pinkText/60 mt-8 font-medium">
+                Một bí mật nho nhỏ đang chờ cậu ✧
+            </p>
+        </div>
+
+
+        <!-- ================= MÀN HÌNH 2: MÓN QUÀ MỞ RA ================= -->
+        <div id="screen2" class="glass-card rounded-3xl p-6 sm:p-8 text-center transition-all duration-700 transform scale-95 opacity-0 hidden relative overflow-hidden">
+            
+            <!-- Hiệu ứng nơ trang trí thiệp -->
+            <div class="text-pinkAccent text-3xl mb-1 animate-bounce">🎁</div>
+            
+            <p class="text-xs uppercase tracking-widest text-pinkAccent font-semibold mb-1">Happy Birthday to You</p>
+            
+            <h2 class="font-romantic text-4xl sm:text-5xl text-pinkDeep font-bold mb-4">
+                Chúc Mừng Sinh Nhật!
+            </h2>
+
+            <!-- Khung Ảnh Xinh Xắn (Đã cập nhật hình ảnh công chúa) -->
+            <div class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-5 rounded-full p-1.5 bg-gradient-to-tr from-pinkAccent via-pink-200 to-pinkDeep shadow-lg">
+                <img 
+                    src="avatar.jpg" 
+                    alt="Công chúa bé nhỏ" 
+                    class="w-full h-full object-cover rounded-full border-2 border-white shadow-inner"
+                    onerror="this.src='https://placehold.co/400x400/f497ac/ffffff?text=Princess+♡'"
+                />
+                <div class="absolute -bottom-2 -right-1 bg-white p-2 rounded-full shadow-md text-pinkDeep text-lg">
+                    💖
+                </div>
+            </div>
+
+            <!-- Lời Chúc Sinh Nhật Ấm Áp & Lãng Mạn -->
+            <div class="bg-white/80 backdrop-blur-sm p-5 rounded-2xl border border-pink-100 shadow-inner mb-6 text-left space-y-3">
+                <p class="font-bold text-pinkDeep text-center text-lg font-romantic">
+                    Gửi công chúa của em ♡
+                </p>
+                <p class="text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
+                    Chào chịii iuu công chuáa bé nhỏ cuảaa em thế làa hnayy là1 ngày mớii 1 ngàyyy cực kìii đặc biệt luonnn là ngàyy kỉ niệmmn 15 nămm ngàyy công chuáaa em ra đời òiii tủi mớiii chuccc chị iuu Luôn luônnn thành công trongg cácc mục tiêuu của chị đặt raa, hạnh phúc bênn những người chịii iuu thươngg, luonnn luonnn😍🫪😘 làaa congg chúa cụa em nho . Happy birthday My loveee
+                </p>
+                <p class="text-right text-xs text-pinkDeep font-bold pt-2">
+                    — From your love 💕
+                </p>
+            </div>
+
+            <!-- Các Nút Tương Tác Phụ -->
+            <div class="flex gap-3 justify-center">
+                <button 
+                    onclick="triggerConfetti()" 
+                    class="py-2.5 px-4 rounded-xl bg-pink-100 hover:bg-pink-200 text-pinkDeep text-xs font-bold transition-colors flex items-center gap-1 shadow-sm cursor-pointer"
+                >
+                    🎉 Thêm pháo hoa
+                </button>
+                <button 
+                    onclick="replaySurprise()" 
+                    class="py-2.5 px-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold transition-colors flex items-center gap-1 shadow-sm cursor-pointer"
+                >
+                    🔄 Xem lại
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- SCRIPTS LOGIC -->
+    <script>
+        // Bật / Tắt âm thanh
+        let isPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggleBtn');
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.classList.remove('animate-spin');
+            } else {
+                audio.play().catch(e => console.log("Audio play blocked by browser"));
+                musicBtn.classList.add('animate-spin');
+                musicBtn.style.animationDuration = '8s';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Lắng nghe phím Enter trong ô nhập
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+
+        // Kiểm tra mật khẩu (Chính xác là 2609 hoặc 26/09 hoặc 26-09)
+        function checkPassword() {
+            const input = document.getElementById('dateInput').value.trim().replace(/\s+/g, '');
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Các định dạng chấp nhận cho ngày 26/09
+            const validPasswords = ['2609', '26/09', '26-09', '26.09'];
+
+            if (validPasswords.includes(input)) {
+                // Nhập đúng -> Chuyển màn hình
+                errorMsg.classList.add('hidden');
+                revealSurprise();
+            } else {
+                // Nhập sai -> Báo lỗi
+                errorMsg.classList.remove('hidden');
+                
+                // Hiệu ứng rung ô nhập khi lỗi
+                const inputEl = document.getElementById('dateInput');
+                inputEl.classList.add('border-rose-400', 'bg-rose-50');
+                setTimeout(() => {
+                    inputEl.classList.remove('border-rose-400', 'bg-rose-50');
+                }, 1000);
+            }
+        }
+
+        // Hiển thị màn hình 2 (Món quà)
+        function revealSurprise() {
+            const screen1 = document.getElementById('screen1');
+            const screen2 = document.getElementById('screen2');
+
+            // Tự động bật nhạc nếu chưa bật
+            if (!isPlaying) {
+                toggleAudio();
+            }
+
+            // Thu nhỏ và mờ màn hình 1
+            screen1.classList.remove('scale-100', 'opacity-100');
+            screen1.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                screen1.classList.add('hidden');
+                screen2.classList.remove('hidden');
+                
+                // Phóng to và hiện màn hình 2
+                setTimeout(() => {
+                    screen2.classList.remove('scale-95', 'opacity-0');
+                    screen2.classList.add('scale-100', 'opacity-100');
+                    
+                    // Kích hoạt pháo hoa trái tim
+                    triggerConfetti();
+                    // Tạo tim bay rực rỡ
+                    startFloatingHearts();
+                }, 50);
+            }, 600);
+        }
+
+        // Tạo hiệu ứng Pháo Hoa (Confetti) màu hồng
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                // Đợt 1: Bắn 2 bên
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.7, x: 0.3 },
+                    colors: ['#f497ac', '#d8587d', '#ffffff', '#ffd1dc']
+                });
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.7, x: 0.7 },
+                    colors: ['#f497ac', '#d8587d', '#ffffff', '#ffd1dc']
+                });
+            }
+        }
+
+        // Tạo Trái tim bay hiệu ứng nền
+        function startFloatingHearts() {
+            const heartIcons = ['💖', '🌸', '✨', '💕', '💗'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                    document.body.appendChild(heart);
+
+                    // Xóa sau khi hoàn thành animation
+                    setTimeout(() => { heart.remove(); }, 6000);
+                }, i * 300);
+            }
+        }
+
+        // Xem lại từ đầu
+        function replaySurprise() {
+            const screen1 = document.getElementById('screen1');
+            const screen2 = document.getElementById('screen2');
+
+            screen2.classList.remove('scale-100', 'opacity-100');
+            screen2.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                screen2.classList.add('hidden');
+                screen1.classList.remove('hidden');
+                document.getElementById('dateInput').value = '';
+                
+                setTimeout(() => {
+                    screen1.classList.remove('scale-95', 'opacity-0');
+                    screen1.classList.add('scale-100', 'opacity-100');
+                }, 50);
+            }, 600);
+        }
+    </script>
+</body>
+</html>
